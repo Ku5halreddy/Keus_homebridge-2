@@ -3,7 +3,7 @@ import { Service, PlatformAccessory, CharacteristicValue, CharacteristicSetCallb
 import { dynamicAPIPlatform } from './platform';
 
 /**
- * Light Accessory
+ * Window covering
  */
 export class WindowCoveringAccessory {
   private service: Service
@@ -53,6 +53,7 @@ export class WindowCoveringAccessory {
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
         }
         // Poll Device Characteristics Periodically and Update HomeKit
+        this.platform.log.info(`[Homebridge] [Device Info]:!!--> )`+JSON.stringify(this.platform.config));
         if (this.platform.config.remoteApiCharPoll[0].WindowCovering.enabled && this.platform.config.remoteApiCharPoll[0].WindowCovering[char]) {
           setInterval (async () => {
             const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
