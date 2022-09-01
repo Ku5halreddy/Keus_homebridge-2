@@ -53,7 +53,7 @@ export class LightAccessory {
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
         }
         // Poll Device Characteristics Periodically and Update HomeKit
-        this.platform.log.info(`[Homebridge] [Device Info]:!!--> )`+JSON.stringify(this.platform.config));
+        this.platform.log.info(`[Homebridge] [Device Info]:LightBulb!!--> )`+JSON.stringify(this.platform.config));
         if (this.platform.config.remoteApiCharPoll[0].Lightbulb.enabled && this.platform.config.remoteApiCharPoll[0].Lightbulb[char]) {
           setInterval (async () => {
             const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
