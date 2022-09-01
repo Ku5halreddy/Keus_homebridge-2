@@ -413,6 +413,7 @@
             "remoteApiCharPoll[].Thermostat.TargetHeatingCoolingState",
             "remoteApiCharPoll[].Thermostat.CurrentTemperature",
             "remoteApiCharPoll[].Thermostat.TargetTemperature",
+            "remoteApiCharPoll[].WindowCovering.enabled",
             "remoteApiCharPoll[].WindowCovering.CurrentDoorState",
             "remoteApiCharPoll[].WindowCovering.TargetDoorState",
             "remoteApiCharPoll[].WindowCovering.StatusJammed"
