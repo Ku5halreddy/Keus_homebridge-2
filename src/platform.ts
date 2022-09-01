@@ -188,8 +188,8 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             }
           }
         }
-      } catch {
-        this.log.error('[Platform Error]:  Invalid response from remote API');
+      } catch(e) {
+        this.log.error('[Platform Error]:  Invalid response from remote API:'+e);
       }
     } 
   }
