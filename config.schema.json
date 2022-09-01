@@ -205,15 +205,41 @@
                   "functionBody": "return model.remoteApiCharPoll[arrayIndices].WindowCovering.enabled === true;"
                   } 
                 },
+                "CurrentPosition":{
+                  "title":"CurrentPosition",
+                  "type":"boolean",
+                  "deafult": true,
+                  "condition": {
+                    "functionBody": "return model.remoteApiCharPoll[arrayIndices].WindowCovering.enabled === true;"
+                    } 
+                },
+                "TargetPosition":{
+                  "title":"TargetPosition",
+                  "type":"boolean",
+                  "deafult": true,
+                  "condition": {
+                    "functionBody": "return model.remoteApiCharPoll[arrayIndices].WindowCovering.enabled === true;"
+                    } 
+                },
+                "PositionState":{
+                  "title":"PositionState",
+                  "type":"boolean",
+                  "deafult": true,
+                  "condition": {
+                    "functionBody": "return model.remoteApiCharPoll[arrayIndices].WindowCovering.enabled === true;"
+                    } 
+                } 
+
+                },
                 "StatusJammed":{
-                  "title": "CurrentDoorState",
+                  "title": "StatusJammed",
                   "type": "boolean",
                   "default": true,
                   "condition": {
                   "functionBody": "return model.remoteApiCharPoll[arrayIndices].WindowCovering.enabled === true;"
                   } 
                 }
-              }
+              
               
             },
             "TemperatureSensor": {
@@ -416,7 +442,11 @@
             "remoteApiCharPoll[].WindowCovering.enabled",
             "remoteApiCharPoll[].WindowCovering.CurrentDoorState",
             "remoteApiCharPoll[].WindowCovering.TargetDoorState",
+            "remoteApiCharPoll[].WindowCovering.CurrentPosition",
+            "remoteApiCharPoll[].WindowCovering.TargetPosition",
+            "remoteApiCharPoll[].WindowCovering.PositionState",
             "remoteApiCharPoll[].WindowCovering.StatusJammed"
+
           ]
         },
         "remoteApiPollInt"

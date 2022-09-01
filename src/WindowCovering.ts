@@ -19,7 +19,8 @@ export class WindowCoveringAccessory {
         CurrentDoorState: {required: true, get: true, set: false},
         TargetDoorState: {required: true, get: true, set: true},
         CurrentPosition:{required: true, get :true, set: false},
-        TargetPosition:{required: true, get :true, set: false},
+        TargetPosition:{required: true, get :true, set: true},
+        PositionState:{required: true, get :true, set: true},
         StatusJammed:{required: true, get:true}
     };
 
@@ -80,9 +81,9 @@ export class WindowCoveringAccessory {
    * These are sent when the user changes the state of an accessory locally on the device.
    */
   async updateChar (chars) {
-
+    this.platform.log.info("---->>>"+JSON.stringify(chars))
     for (const char in chars) {
-      this.platform.log.info("---->>>"+JSON.stringify(chars))
+      
       if (this.checkChar(char, chars[char])) {
         this.service.updateCharacteristic(this.platform.Characteristic[char], chars[char]);
         this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${chars[char]})`);
