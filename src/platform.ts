@@ -54,7 +54,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
       'Humidity Sensor',
       'Fan',
       'Thermostat',
-      'Window'
+      'Window Covering'
     ];
 
     this.apiJWT = {
@@ -131,7 +131,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
               this.deviceAccessories.push(new ThermostatAccessory(this, accessory));
             } else if(device.type==='Fan'){
               this.deviceAccessories.push(new FanAccessory(this, accessory));
-            }else if(device.type==='Window'){
+            }else if(device.type==='Window Covering'){
               this.deviceAccessories.push(new WindowCoveringAccessory(this, accessory));
             }else {
               this.log.warn(`[Platform Warning]:  Device Type No Longer Supported (${device.name} | ${device.type})`);
@@ -159,7 +159,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
               this.deviceAccessories.push(new ThermostatAccessory(this, accessory));
             } else if(device.type==='Fan'){
               this.deviceAccessories.push(new FanAccessory(this, accessory));
-            } else if(device.type==='Window'){
+            } else if(device.type==='Window Covering'){
               this.deviceAccessories.push(new WindowCoveringAccessory(this, accessory));
             }
           

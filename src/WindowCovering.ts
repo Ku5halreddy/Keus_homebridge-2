@@ -31,7 +31,7 @@ export class WindowCoveringAccessory {
 
 
     // get the LightBulb service if it exists, otherwise create a new LightBulb service
-    this.service = this.accessory.getService(this.platform.Service.Door) || this.accessory.addService(this.platform.Service.Lightbulb);
+    this.service = this.accessory.getService(this.platform.Service.WindowCovering) || this.accessory.addService(this.platform.Service.WindowCovering);
     
     // set the service name, this is what is displayed as the default name on the Home app
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.device.name);
@@ -53,7 +53,7 @@ export class WindowCoveringAccessory {
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
         }
         // Poll Device Characteristics Periodically and Update HomeKit
-        if (this.platform.config.remoteApiCharPoll[0].Lightbulb.enabled && this.platform.config.remoteApiCharPoll[0].Lightbulb[char]) {
+        if (this.platform.config.remoteApiCharPoll[0].WindowCovering.enabled && this.platform.config.remoteApiCharPoll[0].WindowCovering[char]) {
           setInterval (async () => {
             const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
             if (!device['errno'] && this.checkChar(char, device[char])) {
