@@ -39,7 +39,6 @@ export class LightAccessory {
     // register handlers for the Characteristics
     
     for (const char in this.charParams) {
-      this.platform.log.info("!------>"+JSON.stringify(this.accessory.context.device))
       if (accessory.context.device.characteristics[char] !== undefined) {
         // SET - bind to the `setChar` method below
         if (this.charParams[char].set === true) {
@@ -83,7 +82,6 @@ export class LightAccessory {
    * These are sent when the user changes the state of an accessory locally on the device.
    */
   async updateChar (chars) {
-    this.platform.log.info("---->>>"+JSON.stringify(chars))
     for (const char in chars) {
       
       if (this.checkChar(char, chars[char])) {
@@ -116,9 +114,9 @@ export class LightAccessory {
   async getChar(char, callback: CharacteristicGetCallback) {
     const uuid:string=this.accessory.context.device.uuid;
     let charVal;
+    
+    //if accesory is a scene then do not make API request to fetch the state since scene is stateless
     if((uuid).substring(uuid.length-3, uuid.length)=="SCN"){
-      this.platform.log.info("!!Ignoring get Char for scene:"+uuid)
-      //callback(null, {"On":false})
       charVal=JSON.stringify({"On":false});
     }
     else{
@@ -137,7 +135,6 @@ export class LightAccessory {
         charVal = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).value;
       }
     }
-    this.platform.log.info("!!Char value:"+uuid+"; charVal:"+JSON.stringify(charVal))
     callback(null, charVal);
   }
 
