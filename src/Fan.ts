@@ -46,7 +46,7 @@ export class FanAccessory {
             this.service.getCharacteristic(this.platform.Characteristic[char])
             .setProps({
               minValue: 0,
-              maxValue: 10,
+              maxValue: 100,
               minStep: 1
             })
             .on('set', this.setChar.bind(this, [char]));
@@ -63,7 +63,7 @@ export class FanAccessory {
             this.service.getCharacteristic(this.platform.Characteristic[char])
             .setProps({
               minValue: 0,
-              maxValue: 10,
+              maxValue: 100,
               minStep: 1
             })
             .on('get', this.getChar.bind(this, [char]));
