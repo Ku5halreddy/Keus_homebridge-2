@@ -126,7 +126,8 @@ export class FanAccessory {
       this.platform.log.info(`[HomeKit] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${charValue})`);
     }
     
-    callback( device.success?HAPStatus.SUCCESS:HAPStatus.SERVICE_COMMUNICATION_FAILURE);
+    //callback( device.success?HAPStatus.SUCCESS:HAPStatus.SERVICE_COMMUNICATION_FAILURE);
+     callback(device.success?null: new Error('Invalid Value'));
   }
 
   
