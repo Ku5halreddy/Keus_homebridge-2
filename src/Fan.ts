@@ -44,11 +44,11 @@ export class FanAccessory {
         if (this.charParams[char].set === true) {
           if(char==='RotationSpeed'){
             this.service.getCharacteristic(this.platform.Characteristic[char])
-            // .setProps({
-            //   minValue: 0,
-            //   maxValue: 5,
-            //   minStep: 1
-            // })
+            .setProps({
+              minValue: 0,
+              maxValue: 10,
+              minStep: 1
+            })
             .on('set', this.setChar.bind(this, [char]));
           }else{
             this.service.getCharacteristic(this.platform.Characteristic[char])
@@ -61,11 +61,11 @@ export class FanAccessory {
         if (this.charParams[char].get === true) {
           if(char==='RotationSpeed'){
             this.service.getCharacteristic(this.platform.Characteristic[char])
-            // .setProps({
-            //   minValue: 0,
-            //   maxValue: 5,
-            //   minStep: 1
-            // })
+            .setProps({
+              minValue: 0,
+              maxValue: 10,
+              minStep: 1
+            })
             .on('get', this.getChar.bind(this, [char]));
           }
           else{
