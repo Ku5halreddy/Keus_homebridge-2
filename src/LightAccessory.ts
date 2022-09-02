@@ -37,7 +37,7 @@ export class LightAccessory {
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.device.name);
 
     // register handlers for the Characteristics
-    const uuid:string=this.accessory.context.device.uuid;
+    
     for (const char in this.charParams) {
       this.platform.log.info("!------>"+JSON.stringify(this.accessory.context.device))
       if (accessory.context.device.characteristics[char] !== undefined) {
@@ -50,7 +50,7 @@ export class LightAccessory {
         // GET - bind to the `getChar` method below  
         
         //ignore getChar for scene siche it is stateless
-        if (this.charParams[char].get === true && (uuid).substring(uuid.length-3, uuid.length)!="SCN") {
+        if (this.charParams[char].get === true ) {
           this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('get', this.getChar.bind(this, [char]));
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
@@ -114,7 +114,12 @@ export class LightAccessory {
    * Handle "GET" characteristics requests from HomeKit
    */
   async getChar(char, callback: CharacteristicGetCallback) {
-
+    const uuid:string=this.accessory.context.device.uuid;
+    if((uuid).substring(uuid.length-3, uuid.length)!="SCN"){
+      this.platform.log.info("!!Ignoring get Char for scene:"+uuid)
+      callback(null,{"On":false})
+    }
+    
     const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
     if (!device['errno'] && this.checkChar(char, device[char])) {
       this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
