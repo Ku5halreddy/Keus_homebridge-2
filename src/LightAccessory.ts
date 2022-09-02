@@ -116,29 +116,28 @@ export class LightAccessory {
   async getChar(char, callback: CharacteristicGetCallback) {
     const uuid:string=this.accessory.context.device.uuid;
     let charVal;
-    if((uuid).substring(uuid.length-3, uuid.length)!="SCN"){
+    if((uuid).substring(uuid.length-3, uuid.length)=="SCN"){
       this.platform.log.info("!!Ignoring get Char for scene:"+uuid)
       //callback(null, {"On":false})
       charVal=JSON.stringify({"On":false});
     }
     else{
-      //---------------
       const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
-    if (!device['errno'] && this.checkChar(char, device[char])) {
-      this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
-      callback(null, device[char]);
-    } else {
-      if (!device['errno']) {
-        this.platform.log.warn(`[HomeKit] [Device Warning]: (${this.accessory.context.device.name} | ${char}) invalid value (${device[char]})`);
-      }
-      // callback with error
-      // callback(new Error('Invalid Value'));
+      if (!device['errno'] && this.checkChar(char, device[char])) {
+        this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
+        callback(null, device[char]);
+      } else {
+        if (!device['errno']) {
+          this.platform.log.warn(`[HomeKit] [Device Warning]: (${this.accessory.context.device.name} | ${char}) invalid value (${device[char]})`);
+        }
+        // callback with error
+        // callback(new Error('Invalid Value'));
 
-      //callback with cached value
-      charVal = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).value;
-      //------------------
+        //callback with cached value
+        charVal = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).value;
+      }
     }
-    }
+    this.platform.log.info("!!Char value:"+uuid+"; charVal:"+JSON.stringify(charVal))
     callback(null, charVal);
   }
 
