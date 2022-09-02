@@ -115,12 +115,15 @@ export class LightAccessory {
    */
   async getChar(char, callback: CharacteristicGetCallback) {
     const uuid:string=this.accessory.context.device.uuid;
+    let charVal;
     if((uuid).substring(uuid.length-3, uuid.length)!="SCN"){
       this.platform.log.info("!!Ignoring get Char for scene:"+uuid)
-      callback(null, {"On":false})
+      //callback(null, {"On":false})
+      charVal=JSON.stringify({"On":false});
     }
-    
-    const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
+    else{
+      //---------------
+      const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
     if (!device['errno'] && this.checkChar(char, device[char])) {
       this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
       callback(null, device[char]);
@@ -132,7 +135,11 @@ export class LightAccessory {
       // callback(new Error('Invalid Value'));
 
       //callback with cached value
-      const charVal = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).value;
+      charVal = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).value;
+      //------------------
+    }
+    
+    
       callback(null, charVal);
     }
   }
