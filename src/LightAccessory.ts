@@ -138,10 +138,8 @@ export class LightAccessory {
       charVal = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).value;
       //------------------
     }
-    
-    
-      callback(null, charVal);
     }
+    callback(null, charVal);
   }
 
   /**
