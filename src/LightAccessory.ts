@@ -37,7 +37,7 @@ export class LightAccessory {
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.device.name);
 
     // register handlers for the Characteristics
-    let uuid:string=this.accessory.context.device.uuid;
+    const uuid:string=this.accessory.context.device.uuid;
     for (const char in this.charParams) {
       this.platform.log.info("!------>"+JSON.stringify(this.accessory.context.device))
       if (accessory.context.device.characteristics[char] !== undefined) {
