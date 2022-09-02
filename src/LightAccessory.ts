@@ -38,7 +38,7 @@ export class LightAccessory {
 
     // register handlers for the Characteristics
     for (const char in this.charParams) {
-
+      this.platform.log.info("!------>"+JSON.stringify(this.accessory.context.device))
       if (accessory.context.device.characteristics[char] !== undefined) {
         // SET - bind to the `setChar` method below
         if (this.charParams[char].set === true) {
@@ -103,7 +103,7 @@ export class LightAccessory {
       this.platform.log.info(`[HomeKit] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${charValue})`);
     }
     //callback(null);
-    callback( device.success?HAPStatus.SUCCESS:HAPStatus.RESOURCE_DOES_NOT_EXIST);
+    callback( device.success?HAPStatus.SUCCESS:HAPStatus.SERVICE_COMMUNICATION_FAILURE);
   }
 
   
