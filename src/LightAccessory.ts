@@ -37,6 +37,7 @@ export class LightAccessory {
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.device.name);
 
     // register handlers for the Characteristics
+    let uuid:string=this.accessory.context.device.uuid;
     for (const char in this.charParams) {
       this.platform.log.info("!------>"+JSON.stringify(this.accessory.context.device))
       if (accessory.context.device.characteristics[char] !== undefined) {
@@ -47,7 +48,9 @@ export class LightAccessory {
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) SET characteristic`);
         }
         // GET - bind to the `getChar` method below  
-        if (this.charParams[char].get === true) {
+        
+        //ignore getChar for scene siche it is stateless
+        if (this.charParams[char].get === true && (uuid).substring(uuid.length-3, uuid.length)!="SCN") {
           this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('get', this.getChar.bind(this, [char]));
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
