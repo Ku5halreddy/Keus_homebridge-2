@@ -118,9 +118,9 @@ export class FanAccessory {
   /**
    * Handle "SET" characteristics requests from HomeKit
    */
-  setChar (char, charValue: CharacteristicValue, callback: CharacteristicSetCallback) {
+  async setChar (char, charValue: CharacteristicValue, callback: CharacteristicSetCallback) {
     
-    const device = this.platform.remoteAPI('PATCH', this.accessory.context.device.uuid, `{"${char}": ${charValue}}`);
+    const device = await this.platform.remoteAPI('PATCH', this.accessory.context.device.uuid, `{"${char}": ${charValue}}`);
     this.platform.log.info("!!!------->Fan update resp"+JSON.stringify(device))
     if (!device['errno']) {
       this.platform.log.info(`[HomeKit] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${charValue})`);
