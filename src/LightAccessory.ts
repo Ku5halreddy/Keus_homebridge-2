@@ -117,7 +117,7 @@ export class LightAccessory {
     const uuid:string=this.accessory.context.device.uuid;
     if((uuid).substring(uuid.length-3, uuid.length)!="SCN"){
       this.platform.log.info("!!Ignoring get Char for scene:"+uuid)
-      callback(null,{"On":false})
+      callback(null, {"On":false})
     }
     
     const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
