@@ -171,10 +171,11 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             }
           
             // Add the new accessory to the accessories cache
+            this.log.info("!---- before register "+JSON.stringify(accessory.context.device) +" Accesory")
             this.accessories.push(accessory);
 
             // link the accessory to your platform
-            this.log.info("!---- before register "+JSON.stringify(accessory.context.device) +" Accesory")
+           
             await this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
             this.log.info("!---- After registered "+accessory.context.device.name +" Accesory")
             this.log.info(`[Platform Event]:  Added New Device (${device.name} | ${device.type}) from ${this.config.remoteApiDisplayName}`);
