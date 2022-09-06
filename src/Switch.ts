@@ -41,37 +41,16 @@ export class SwitchAccessory {
       if (accessory.context.device.characteristics[char] !== undefined) {
         // SET - bind to the `setChar` method below
         if (this.charParams[char].set === true) {
-          if(char==='RotationSpeed'){
-            this.service.getCharacteristic(this.platform.Characteristic[char])
-            .setProps({
-              minValue: 0,
-              maxValue: 100,
-              minStep: 1
-            })
-            .on('set', this.setChar.bind(this, [char]));
-          }else{
             this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('set', this.setChar.bind(this, [char]));
-          }
           
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) SET characteristic`);
         }
         // GET - bind to the `getChar` method below  
         if (this.charParams[char].get === true) {
-          if(char==='RotationSpeed'){
-            this.service.getCharacteristic(this.platform.Characteristic[char])
-            .setProps({
-              minValue: 0,
-              maxValue: 100,
-              minStep: 1
-            })
-            .on('get', this.getChar.bind(this, [char]));
-          }
-          else{
+        
             this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('get', this.getChar.bind(this, [char]));
-          }
-          
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
         }
         // Poll Device Characteristics Periodically and Update HomeKit

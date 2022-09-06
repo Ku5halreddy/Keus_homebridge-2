@@ -166,6 +166,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             } else if(device.type==='Window Covering'){
               this.deviceAccessories.push(new WindowCoveringAccessory(this, accessory));
             } else if(device.type=='Switch'){
+              this.log.info("!----"+ JSON.stringify(accessory))
               this.deviceAccessories.push(new SwitchAccessory(this, accessory));
             }
           
