@@ -174,8 +174,9 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             this.accessories.push(accessory);
 
             // link the accessory to your platform
+          
             this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
-
+            this.log.info("!---- platform "+accessory.context.device.name +" Accesory")
             this.log.info(`[Platform Event]:  Added New Device (${device.name} | ${device.type}) from ${this.config.remoteApiDisplayName}`);
           } else {
             this.log.warn(`[Platform Warning]:  Device Type Not Supported (${device.name} | ${device.type})`);
@@ -184,11 +185,9 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
         } 
     
         // Delete an old accessory
-        if (this.accessories.length > discoveredDevices.length) {
-          this.log.info("!--- delete old accessory");
+        if (this.accessories.length > discoveredDevices.length) {        
           for (let accessoryIndex = this.accessories.length - 1; accessoryIndex > 0; accessoryIndex --) {
             if (discoveredDevices.findIndex(devices => devices.uuid === this.accessories[accessoryIndex].context.device.uuid) === -1) { 
-              this.log.info("!--- delete old accessory"+JSON.stringify(this.accessories[accessoryIndex].context.device));
               const accessory = this.accessories[accessoryIndex];
               this.api.unregisterPlatformAccessories('PLUGIN_NAME', 'PLATFORM_NAME', [accessory]);
               this.log.info(`[Platform Event]:  Deleted Device (${this.accessories[accessoryIndex].context.device.name})`);
