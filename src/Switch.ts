@@ -42,7 +42,7 @@ export class SwitchAccessory {
 
     // register handlers for the Characteristics
     for (const char in this.charParams) {
-        this.platform.log.warn("!!!switch checkpoint line 45");
+        this.platform.log.warn("!!!switch checkpoint line 45"+ char);
       if (accessory.context.device.characteristics[char] !== undefined) {
         this.platform.log.warn("!!!switch checkpoint line 47");
         // SET - bind to the `setChar` method below
