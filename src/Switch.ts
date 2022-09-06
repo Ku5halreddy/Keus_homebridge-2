@@ -25,8 +25,8 @@ export class SwitchAccessory {
       .setCharacteristic(this.platform.Characteristic.Model, 'Switch')
       .setCharacteristic(this.platform.Characteristic.SerialNumber, accessory.context.device.uuid);
 
-      this.accessory.getService(this.platform.Service.AccessoryInformation)!
-      .getCharacteristic(this.platform.Characteristic.RotationSpeed);
+    //   this.accessory.getService(this.platform.Service.AccessoryInformation)!
+    //   .getCharacteristic(this.platform.Characteristic.RotationSpeed);
 
 
     // get the LightBulb service if it exists, otherwise create a new Switch service
