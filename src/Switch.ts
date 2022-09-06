@@ -16,7 +16,8 @@ export class SwitchAccessory {
 
     // Supported accessory characteristics
     this.charParams = {
-      PowerState: {required: true, get: true, set: true}
+      PowerState: {required: true, get: true, set: true},
+      OutputState: {required: true, get: true, set: true}
     };
 
     this.platform.log.info("!!!switch characteristics "+JSON.stringify(accessory.context.device));
@@ -47,7 +48,7 @@ export class SwitchAccessory {
         this.platform.log.warn("!!!switch checkpoint line 47");
         // SET - bind to the `setChar` method below
         if (this.charParams[char].set === true) {
-            this.platform.log.warn("!!!switch checkpoint line 50"+JSON.stringify( this.service.getCharacteristic(this.platform.Characteristic[char])));
+            this.platform.log.warn("!!!switch checkpoint line 50"+JSON.stringify( this.platform.Characteristic[char]));
             this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('set', this.setChar.bind(this, [char]));
             this.platform.log.warn("!!!switch checkpoint line 53");

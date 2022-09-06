@@ -126,7 +126,15 @@
                   "condition": {
                   "functionBody": "return model.remoteApiCharPoll[arrayIndices].Switch.enabled === true;"
                 }
+               },
+               "OutputState":{
+                "title": "OutputState",
+                "type": "boolean",
+                "default": true,
+                "condition": {
+                "functionBody": "return model.remoteApiCharPoll[arrayIndices].Switch.enabled === true;"
                }
+             }
             }
 
             },
@@ -466,8 +474,9 @@
             "remoteApiCharPoll[].WindowCovering.TargetPosition",
             "remoteApiCharPoll[].WindowCovering.PositionState",
             "remoteApiCharPoll[].WindowCovering.StatusJammed",
+            "remoteApiCharPoll[].Switch.enabled",
             "remoteApiCharPoll[].Switch.PowerState",
-            "remoteApiCharPoll[].Switch.enabled"
+            "remoteApiCharPoll[].Switch.OutputState"
 
           ]
         },
