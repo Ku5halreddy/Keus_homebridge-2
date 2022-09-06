@@ -17,7 +17,7 @@ export class SwitchAccessory {
     // Supported accessory characteristics
     this.charParams = {
       PowerState: {required: true, get: true, set: true},
-      OutputState: {required: true, get: true, set: true}
+      OutputState: {required: false, get: true, set: true}
     };
 
     this.platform.log.info("!!!switch characteristics "+JSON.stringify(accessory.context.device));
