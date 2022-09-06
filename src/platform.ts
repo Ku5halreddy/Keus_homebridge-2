@@ -149,7 +149,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
 
             // store a copy of the device object in the `accessory.context`
             accessory.context.device = device;
-
+            this.log.info("!!---device info-->"+JSON.stringify(device));
             // create the accessory handler for the restored accessory
             if(device.type === 'Garage Door Opener') {
               this.deviceAccessories.push(new GarageDoorAccessory(this, accessory));
