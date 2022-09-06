@@ -185,9 +185,10 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
     
         // Delete an old accessory
         if (this.accessories.length > discoveredDevices.length) {
-
+          this.log.info("!--- delete old accessory");
           for (let accessoryIndex = this.accessories.length - 1; accessoryIndex > 0; accessoryIndex --) {
             if (discoveredDevices.findIndex(devices => devices.uuid === this.accessories[accessoryIndex].context.device.uuid) === -1) { 
+              this.log.info("!--- delete old accessory"+JSON.stringify(this.accessories[accessoryIndex].context.device));
               const accessory = this.accessories[accessoryIndex];
               this.api.unregisterPlatformAccessories('PLUGIN_NAME', 'PLATFORM_NAME', [accessory]);
               this.log.info(`[Platform Event]:  Deleted Device (${this.accessories[accessoryIndex].context.device.name})`);
