@@ -175,7 +175,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
 
             // link the accessory to your platform
           
-            this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
+            await this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
             this.log.info("!---- platform "+accessory.context.device.name +" Accesory")
             this.log.info(`[Platform Event]:  Added New Device (${device.name} | ${device.type}) from ${this.config.remoteApiDisplayName}`);
           } else {
