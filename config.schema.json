@@ -110,6 +110,26 @@
                 }
               }
             },
+            "Switch":{
+              "title": "Switch Accessory",
+              "type": "object",
+              "properties":{
+                "enabled": {
+                  "title": "Enable Switch Accessory",
+                  "type": "boolean",
+                  "default": false
+                },
+                "PowerState":{
+                  "title": "PowerState",
+                  "type": "boolean",
+                  "default": true,
+                  "condition": {
+                  "functionBody": "return model.remoteApiCharPoll[arrayIndices].Switch.enabled === true;"
+                }
+               }
+            }
+
+            },
             "Thermostat": {
               "title": "Thermostat Accessory",
               "type": "object",
@@ -307,7 +327,7 @@
         "maximum": 60,
         "description": "Time between Poll Events (in Seconds)",
         "condition": {
-          "functionBody": "return model.remoteApiCharPoll[0].Lightbulb.enabled === true || model.remoteApiCharPoll[0].GarageDoorOpener.enabled === true || model.remoteApiCharPoll[0].TemperatureSensor.enabled === true || model.remoteApiCharPoll[0].HumiditySensor.enabled === true || model.remoteApiCharPoll[0].Fan.enabled === true || model.remoteApiCharPoll[0].Thermostat.enabled === true;"
+          "functionBody": "return model.remoteApiCharPoll[0].Lightbulb.enabled === true || model.remoteApiCharPoll[0].GarageDoorOpener.enabled === true || model.remoteApiCharPoll[0].TemperatureSensor.enabled === true || model.remoteApiCharPoll[0].HumiditySensor.enabled === true || model.remoteApiCharPoll[0].Fan.enabled === true || model.remoteApiCharPoll[0].Thermostat.enabled === true || model.remoteApiCharPoll[0].Switch.enabled === true ;"
         } 
       },
       "directConnectApiIP": {
@@ -445,7 +465,9 @@
             "remoteApiCharPoll[].WindowCovering.CurrentPosition",
             "remoteApiCharPoll[].WindowCovering.TargetPosition",
             "remoteApiCharPoll[].WindowCovering.PositionState",
-            "remoteApiCharPoll[].WindowCovering.StatusJammed"
+            "remoteApiCharPoll[].WindowCovering.StatusJammed",
+            "remoteApiCharPoll[].Switch.PowerState",
+            "remoteApiCharPoll[].Switch.enabled"
 
           ]
         },
