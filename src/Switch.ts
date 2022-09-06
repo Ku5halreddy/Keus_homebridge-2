@@ -47,11 +47,12 @@ export class SwitchAccessory {
       if (accessory.context.device.characteristics[char] !== undefined) {
         this.platform.log.warn("!!!switch checkpoint line 47");
         // SET - bind to the `setChar` method below
+        this.platform.log.warn("!!!switch checkpoint On char "+JSON.stringify( this.service.getCharacteristic(this.platform.Characteristic["On"])));
         if (this.charParams[char].set === true) {
-            this.platform.log.warn("!!!switch checkpoint line 50"+JSON.stringify( this.platform.Characteristic[char]));
+            this.platform.log.warn("!!!switch checkpoint line 52"+JSON.stringify( this.platform.Characteristic[char]));
             this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('set', this.setChar.bind(this, [char]));
-            this.platform.log.warn("!!!switch checkpoint line 53");
+            this.platform.log.warn("!!!switch checkpoint line 55");
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) SET characteristic`);
         }
         // GET - bind to the `getChar` method below  
