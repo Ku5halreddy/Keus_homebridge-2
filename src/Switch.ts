@@ -26,27 +26,31 @@ export class SwitchAccessory {
       .setCharacteristic(this.platform.Characteristic.Model, 'Switch')
       .setCharacteristic(this.platform.Characteristic.SerialNumber, accessory.context.device.uuid);
 
+      this.platform.log.warn("!!!switch checkpoint line 28");
+
     //   this.accessory.getService(this.platform.Service.AccessoryInformation)!
     //   .getCharacteristic(this.platform.Characteristic.RotationSpeed);
 
 
     // get the LightBulb service if it exists, otherwise create a new Switch service
     this.service = this.accessory.getService(this.platform.Service.Switch) || this.accessory.addService(this.platform.Service.Switch);
-    
+     this.platform.log.warn("!!!switch checkpoint line 37");
     // set the service name, this is what is displayed as the default name on the Home app
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.device.name);
-
+    this.platform.log.warn("!!!switch checkpoint line 40");
 
 
     // register handlers for the Characteristics
     for (const char in this.charParams) {
-
+        this.platform.log.warn("!!!switch checkpoint line 45");
       if (accessory.context.device.characteristics[char] !== undefined) {
+        this.platform.log.warn("!!!switch checkpoint line 47");
         // SET - bind to the `setChar` method below
         if (this.charParams[char].set === true) {
+            this.platform.log.warn("!!!switch checkpoint line 50");
             this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('set', this.setChar.bind(this, [char]));
-          
+            this.platform.log.warn("!!!switch checkpoint line 53");
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) SET characteristic`);
         }
         // GET - bind to the `getChar` method below  
