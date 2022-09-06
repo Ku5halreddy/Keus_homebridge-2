@@ -162,12 +162,12 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             } else if(device.type==='Thermostat'){
               this.deviceAccessories.push(new ThermostatAccessory(this, accessory));
             } else if(device.type==='Fan'){
-              this.log.info("!---- before register "+JSON.stringify(new FanAccessory(this, accessory)) +" Fan Accesory")
+              this.log.warn("!---- before register Fan Accesory")
               this.deviceAccessories.push(new FanAccessory(this, accessory));
             } else if(device.type==='Window Covering'){
               this.deviceAccessories.push(new WindowCoveringAccessory(this, accessory));
             } else if(device.type=='Switch'){
-              this.log.info("!---- before register "+JSON.stringify(new SwitchAccessory(this, accessory)) +"Switch Accesory")
+              this.log.warn("!---- before register Switch Accesory")
               this.deviceAccessories.push(new SwitchAccessory(this, accessory));
             }
           
