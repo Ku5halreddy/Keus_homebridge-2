@@ -149,12 +149,10 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
 
             // store a copy of the device object in the `accessory.context`
             accessory.context.device = device;
-            this.log.info("!!---device info-->"+JSON.stringify(device));
             // create the accessory handler for the restored accessory
             if(device.type === 'Garage Door Opener') {
               this.deviceAccessories.push(new GarageDoorAccessory(this, accessory));
             } else if (device.type === 'Lightbulb') {
-              this.log.warn("!---- before register Light bulb Accesory")
               this.deviceAccessories.push(new LightAccessory(this, accessory));
             } else if (device.type === 'Temperature Sensor') {
               this.deviceAccessories.push(new TemperatureSensorAccessory(this, accessory));
@@ -163,12 +161,10 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             } else if(device.type==='Thermostat'){
               this.deviceAccessories.push(new ThermostatAccessory(this, accessory));
             } else if(device.type==='Fan'){
-              this.log.warn("!---- before register Fan Accesory")
               this.deviceAccessories.push(new FanAccessory(this, accessory));
             } else if(device.type==='Window Covering'){
               this.deviceAccessories.push(new WindowCoveringAccessory(this, accessory));
             } else if(device.type=='Switch'){
-              this.log.warn("!---- before register Switch Accesory")
               this.deviceAccessories.push(new SwitchAccessory(this, accessory));
             }
           
@@ -179,7 +175,6 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             // link the accessory to your platform
            
             await this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
-            this.log.info("!---- After registered "+accessory.context.device.name +" Accesory")
             this.log.info(`[Platform Event]:  Added New Device (${device.name} | ${device.type}) from ${this.config.remoteApiDisplayName}`);
           } else {
             this.log.warn(`[Platform Warning]:  Device Type Not Supported (${device.name} | ${device.type})`);

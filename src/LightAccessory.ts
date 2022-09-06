@@ -43,7 +43,6 @@ export class LightAccessory {
       if (accessory.context.device.characteristics[char] !== undefined) {
         // SET - bind to the `setChar` method below
         if (this.charParams[char].set === true) {
-          this.platform.log.warn("!!!light checkpoint line 50"+JSON.stringify( this.service.getCharacteristic(this.platform.Characteristic[char])));
           this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('set', this.setChar.bind(this, [char]));
           this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) SET characteristic`);
