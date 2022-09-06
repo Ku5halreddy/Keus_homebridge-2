@@ -154,6 +154,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             if(device.type === 'Garage Door Opener') {
               this.deviceAccessories.push(new GarageDoorAccessory(this, accessory));
             } else if (device.type === 'Lightbulb') {
+              this.log.warn("!---- before register Light bulb Accesory")
               this.deviceAccessories.push(new LightAccessory(this, accessory));
             } else if (device.type === 'Temperature Sensor') {
               this.deviceAccessories.push(new TemperatureSensorAccessory(this, accessory));

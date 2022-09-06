@@ -19,6 +19,7 @@ export class SwitchAccessory {
       PowerState: {required: true, get: true, set: true}
     };
 
+    this.platform.log.info("!!!switch characteristics "+JSON.stringify(accessory.context.device));
     // set accessory information
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
       .setCharacteristic(this.platform.Characteristic.Manufacturer, 'Keus')
@@ -34,6 +35,8 @@ export class SwitchAccessory {
     
     // set the service name, this is what is displayed as the default name on the Home app
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.device.name);
+
+
 
     // register handlers for the Characteristics
     for (const char in this.charParams) {

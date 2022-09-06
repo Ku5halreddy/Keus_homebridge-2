@@ -23,6 +23,7 @@ export class LightAccessory {
       Saturation: {required: false, get: true, set: true},
     };
 
+    this.platform.log.info("!!!lightbulb characteristics "+JSON.stringify(accessory.context.device));
     // set accessory information
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
       .setCharacteristic(this.platform.Characteristic.Manufacturer, 'Keus')
