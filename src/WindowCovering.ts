@@ -18,10 +18,10 @@ export class WindowCoveringAccessory {
     this.charParams = {
         CurrentDoorState: {required: true, get: true, set: false},
         TargetDoorState: {required: true, get: true, set: true},
-        CurrentPosition:{required: true, get :true, set: false},
-        TargetPosition:{required: true, get :true, set: true},
-        PositionState:{required: true, get :true, set: true},
-        StatusJammed:{required: false, get:true}
+        // CurrentPosition:{required: true, get :true, set: false},
+        // TargetPosition:{required: true, get :true, set: true},
+        // PositionState:{required: true, get :true, set: true},
+        // StatusJammed:{required: false, get:true}
     };
 
     // set accessory information
