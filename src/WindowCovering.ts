@@ -145,7 +145,7 @@ export class WindowCoveringAccessory {
       this.platform.log.info("Window covering CharType:"+charType+", charValue:"+charValue+", charMin:"+charMin+", CharMAx:"+charMax)
       if (charType === 'bool' && typeof charValue === 'boolean') {
         return true;
-      } else if ((charType === 'float' || charType === 'int' || charType==='uint8') && charValue >= charMin && charValue <= charMax){
+      } else if ((charType === 'float' || charType === 'int' || charType === 'uint8') && charValue >= charMin && charValue <= charMax){
         return true;
       } else {
         return false;
