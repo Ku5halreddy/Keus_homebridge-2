@@ -18,10 +18,10 @@ export class WindowCoveringAccessory {
     this.charParams = {
         CurrentDoorState: {required: true, get: true, set: false},
         TargetDoorState: {required: true, get: true, set: true},
-        CurrentPosition:{required: true, get :true, set: false},
-        TargetPosition:{required: true, get :true, set: true},
-        PositionState:{required: true, get :true, set: true},
-        StatusJammed:{required: false, get:true}
+        CurrentPosition: {required: true, get :true, set: false},
+        TargetPosition: {required: true, get :true, set: true},
+        PositionState: {required: true, get :true, set: true},
+        StatusJammed: {required: false, get:true}
     };
 
     // set accessory information
@@ -113,6 +113,7 @@ export class WindowCoveringAccessory {
   async getChar(char, callback: CharacteristicGetCallback) {
 
     const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
+    //this.checkChar(char, device[char])
     if (!device['errno'] && this.checkChar(char, device[char])) {
       this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
       callback(null, device[char]);
@@ -125,8 +126,8 @@ export class WindowCoveringAccessory {
 
       //callback with cached value
       const charVal = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).value;
-      this.platform.log.info(`[HomeKit] Cached Char value: (${this.accessory.context.device.name} | ${char})  value (${charVal})`);
-      callback(null, charVal);
+      this.platform.log.info(`[HomeKit] Cached Char value: (${this.accessory.context.device.name} | ${char})  value (${charVal}) : CheckChar= ${this.checkChar(char, device[char])}`);
+      callback(null, 1);
     }
   }
 
@@ -140,7 +141,7 @@ export class WindowCoveringAccessory {
       const charType = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.format;
       const charMin = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.minValue || 0;
       const charMax = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.maxValue || 0;
-
+      this.platform.log.info("CharType:"+charType+", charValue:"+charValue)
       if (charType === 'bool' && typeof charValue === 'boolean') {
         return true;
       } else if ((charType === 'float' || charType === 'int') && charValue >= charMin && charValue <= charMax){
