@@ -19,9 +19,9 @@ export class WindowCoveringAccessory {
         CurrentDoorState: {required: true, get: true, set: false},
         TargetDoorState: {required: true, get: true, set: true},
         CurrentPosition:{required: true, get :true, set: false},
-        // TargetPosition:{required: true, get :true, set: true},
-        // PositionState:{required: true, get :true, set: true},
-        // StatusJammed:{required: false, get:true}
+        TargetPosition:{required: true, get :true, set: true},
+        PositionState:{required: true, get :true, set: true},
+        StatusJammed:{required: false, get:true}
     };
 
     // set accessory information
@@ -125,6 +125,7 @@ export class WindowCoveringAccessory {
 
       //callback with cached value
       const charVal = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).value;
+      this.platform.log.info(`[HomeKit] Cached Char value: (${this.accessory.context.device.name} | ${char})  value (${charVal})`);
       callback(null, charVal);
     }
   }
