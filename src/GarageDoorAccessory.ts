@@ -142,7 +142,7 @@ export class GarageDoorAccessory {
       const charType = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.format;
       const charMin = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.minValue || 0;
       const charMax = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.maxValue || 0;
-
+      this.platform.log.info("Garage Door CharType:"+charType+", charValue:"+charValue+", charMin:"+charMin+", CharMAx:"+charMax)
       if (charType === 'bool' && typeof charValue === 'boolean') {
         return true;
       } else if ((charType === 'float' || charType === 'int' || charType === 'uint8') && charValue >= charMin && charValue <= charMax){

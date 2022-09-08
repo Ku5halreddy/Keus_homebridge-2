@@ -113,6 +113,7 @@ export class WindowCoveringAccessory {
   async getChar(char, callback: CharacteristicGetCallback) {
 
     const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
+    this
     //this.checkChar(char, device[char])
     if (!device['errno'] && this.checkChar(char, device[char])) {
       this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
@@ -141,7 +142,7 @@ export class WindowCoveringAccessory {
       const charType = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.format;
       const charMin = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.minValue || 0;
       const charMax = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.maxValue || 0;
-      this.platform.log.info("CharType:"+charType+", charValue:"+charValue)
+      this.platform.log.info("Window covering CharType:"+charType+", charValue:"+charValue+", charMin:"+charMin+", CharMAx:"+charMax)
       if (charType === 'bool' && typeof charValue === 'boolean') {
         return true;
       } else if ((charType === 'float' || charType === 'int') && charValue >= charMin && charValue <= charMax){
