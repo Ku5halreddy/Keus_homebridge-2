@@ -113,7 +113,7 @@ export class WindowCoveringAccessory {
   async getChar(char, callback: CharacteristicGetCallback) {
 
     const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
-    this
+   
     //this.checkChar(char, device[char])
     if (!device['errno'] && this.checkChar(char, device[char])) {
       this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
