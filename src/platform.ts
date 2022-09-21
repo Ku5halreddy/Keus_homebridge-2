@@ -88,7 +88,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
    * It should be used to setup event handlers for characteristics and update respective values.
    */
   configureAccessory(accessory: PlatformAccessory) {
-    this.log.info(`[Platform Event]:  Restored Device (${accessory.displayName}) from Homebridge Cache`);
+    //this.log.info(`[Platform Event]:  Restored Device (${accessory.displayName}) from Homebridge Cache`);
 
     // add the restored accessory to the accessories cache so we can track if it has already been registered
     this.accessories.push(accessory);
@@ -115,7 +115,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
           // the accessory already exists
           if (accessory) {
           
-            this.log.info(`[Platform Event]:  Restored Device (${device.name}) from ${this.config.remoteApiDisplayName}`);
+            //this.log.info(`[Platform Event]:  Restored Device (${device.name}) from ${this.config.remoteApiDisplayName}`);
           
             // Update accessory context
             accessory.context.device = device;
@@ -175,7 +175,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             // link the accessory to your platform
            
             await this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
-            this.log.info(`[Platform Event]:  Added New Device (${device.name} | ${device.type}) from ${this.config.remoteApiDisplayName}`);
+            //this.log.info(`[Platform Event]:  Added New Device (${device.name} | ${device.type}) from ${this.config.remoteApiDisplayName}`);
           } else {
             this.log.warn(`[Platform Warning]:  Device Type Not Supported (${device.name} | ${device.type})`);
           }
@@ -188,7 +188,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
             if (discoveredDevices.findIndex(devices => devices.uuid === this.accessories[accessoryIndex].context.device.uuid) === -1) { 
               const accessory = this.accessories[accessoryIndex];
               this.api.unregisterPlatformAccessories('PLUGIN_NAME', 'PLATFORM_NAME', [accessory]);
-              this.log.info(`[Platform Event]:  Deleted Device (${this.accessories[accessoryIndex].context.device.name})`);
+              //this.log.info(`[Platform Event]:  Deleted Device (${this.accessories[accessoryIndex].context.device.name})`);
               this.accessories.splice(accessoryIndex, 1);
             }
           }
@@ -203,7 +203,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
   updateDevice(req, res) {
 
     if (this.deviceAccessories.length === 0) {
-      this.log.warn(`[Platform Warning]: No devices synchronised from ${this.config.remoteApiDisplayName}`);
+      //this.log.warn(`[Platform Warning]: No devices synchronised from ${this.config.remoteApiDisplayName}`);
       res.status(404).send(`WARNING: No devices synchronised from ${this.config.remoteApiDisplayName}`);
     } else {
      
@@ -224,7 +224,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
       
         } else {
           
-          this.log.info(`[Platform Warning]: Device with type: (${req.body.uuid} | ${req.body.type}) not found`);
+          //this.log.info(`[Platform Warning]: Device with type: (${req.body.uuid} | ${req.body.type}) not found`);
           res.status(404).send(`WARNING: Device with type: (${req.body.uuid} | ${req.body.type}) not found`);
         }
       }
@@ -244,7 +244,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
     })
       .then(res => {
         if (res.ok) { // res.status >= 200 && res.status < 300
-          this.log.info(`[Platform Info]:  ${this.config.remoteApiDisplayName} JWT Fetch Success: ${res.status}`);
+          //this.log.info(`[Platform Info]:  ${this.config.remoteApiDisplayName} JWT Fetch Success: ${res.status}`);
           return res;
         } else {
           throw new Error(`${res.status}`);
@@ -346,10 +346,10 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
       WebApp.get( '/api/', ( req, res ) => {
         if (this.config.jwt === true){
           res.send(`[${this.config.remoteApiDisplayName}] [Platform Info]:  Homebridge Direct Connect API Running <br><br>${apiGetResponse}`);
-          this.log.info('[Platform Info]:  GET All Accessory information and Direct Connect API Status');
+          //this.log.info('[Platform Info]:  GET All Accessory information and Direct Connect API Status');
         } else {
           res.send(`[${this.config.remoteApiDisplayName}] [Platform Info]:  Homebridge Direct Connect API Running <br><br>${apiGetResponse}`);
-          this.log.info('[Platform Info]:  GET All Accessory information and Direct Connect API Status');
+          //this.log.info('[Platform Info]:  GET All Accessory information and Direct Connect API Status');
         }
       });
 

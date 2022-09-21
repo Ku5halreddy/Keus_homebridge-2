@@ -45,13 +45,13 @@ export class WindowCoveringAccessory {
         if (this.charParams[char].set === true) {
           this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('set', this.setChar.bind(this, [char]));
-          this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) SET characteristic`);
+          //this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) SET characteristic`);
         }
         // GET - bind to the `getChar` method below  
         if (this.charParams[char].get === true) {
           this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('get', this.getChar.bind(this, [char]));
-          this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
+          //this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
         }
         // Poll Device Characteristics Periodically and Update HomeKit
         if (this.platform.config.remoteApiCharPoll[0].WindowCovering.enabled && this.platform.config.remoteApiCharPoll[0].WindowCovering[char]) {
@@ -59,7 +59,7 @@ export class WindowCoveringAccessory {
             const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
             if (!device['errno'] && this.checkChar(char, device[char])) {
               this.service.updateCharacteristic(this.platform.Characteristic[char], device[char]);
-              this.platform.log.info(`[Homebridge] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
+              //this.platform.log.info(`[Homebridge] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
             } else {
               if (!device['errno']) {
                 this.platform.log.warn(`[Homebridge] [Device Warning]: (${this.accessory.context.device.name} | ${char}) invalid value (${device[char]})`);
@@ -81,12 +81,12 @@ export class WindowCoveringAccessory {
    * These are sent when the user changes the state of an accessory locally on the device.
    */
   async updateChar (chars) {
-    this.platform.log.info("---->>>"+JSON.stringify(chars))
+    //this.platform.log.info("---->>>"+JSON.stringify(chars))
     for (const char in chars) {
       
       if (this.checkChar(char, chars[char])) {
         this.service.updateCharacteristic(this.platform.Characteristic[char], chars[char]);
-        this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${chars[char]})`);
+        //this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${chars[char]})`);
       } else {
         this.platform.log.warn(`[${this.platform.config.remoteApiDisplayName}] [Device Warning]: (${this.accessory.context.device.name} | ${char} | ${chars[char]}) invalid characteristic or value`);
       }
@@ -101,7 +101,7 @@ export class WindowCoveringAccessory {
     
     const device = await this.platform.remoteAPI('PATCH', this.accessory.context.device.uuid, `{"${char}": ${charValue}}`);
     if (!device['errno']) {
-      this.platform.log.info(`[HomeKit] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${charValue})`);
+      //this.platform.log.info(`[HomeKit] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${charValue})`);
     }
     callback(device.success?HAPStatus.SUCCESS:HAPStatus.SERVICE_COMMUNICATION_FAILURE);
   }
@@ -116,7 +116,7 @@ export class WindowCoveringAccessory {
    
     //this.checkChar(char, device[char])
     if (!device['errno'] && this.checkChar(char, device[char])) {
-      this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
+      //this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
       callback(null, device[char]);
     } else {
       if (!device['errno']) {
@@ -127,7 +127,7 @@ export class WindowCoveringAccessory {
 
       //callback with cached value
       const charVal = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).value;
-      this.platform.log.info(`[HomeKit] Cached Char value: (${this.accessory.context.device.name} | ${char})  value (${charVal}) : CheckChar= ${this.checkChar(char, device[char])}`);
+      //this.platform.log.info(`[HomeKit] Cached Char value: (${this.accessory.context.device.name} | ${char})  value (${charVal}) : CheckChar= ${this.checkChar(char, device[char])}`);
       callback(null, 1);
     }
   }
@@ -142,7 +142,7 @@ export class WindowCoveringAccessory {
       const charType = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.format;
       const charMin = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.minValue || 0;
       const charMax = this.service.getCharacteristic(this.platform.api.hap.Characteristic[char]).props.maxValue || 0;
-      this.platform.log.info("Window covering CharType:"+charType+", charValue:"+charValue+", charMin:"+charMin+", CharMAx:"+charMax)
+      //this.platform.log.info("Window covering CharType:"+charType+", charValue:"+charValue+", charMin:"+charMin+", CharMAx:"+charMax)
       if (charType === 'bool' && typeof charValue === 'boolean') {
         return true;
       } else if ((charType === 'float' || charType === 'int' || charType === 'uint8') && charValue >= charMin && charValue <= charMax){

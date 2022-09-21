@@ -23,7 +23,7 @@ export class LightAccessory {
       Saturation: {required: false, get: true, set: true},
     };
 
-    this.platform.log.info("!!!lightbulb characteristics "+JSON.stringify(accessory.context.device));
+    //this.platform.log.info("!!!lightbulb characteristics "+JSON.stringify(accessory.context.device));
     // set accessory information
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
       .setCharacteristic(this.platform.Characteristic.Manufacturer, 'Keus')
@@ -45,7 +45,7 @@ export class LightAccessory {
         if (this.charParams[char].set === true) {
           this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('set', this.setChar.bind(this, [char]));
-          this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) SET characteristic`);
+          //this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) SET characteristic`);
         }
         // GET - bind to the `getChar` method below  
         
@@ -53,7 +53,7 @@ export class LightAccessory {
         if (this.charParams[char].get === true ) {
           this.service.getCharacteristic(this.platform.Characteristic[char])
             .on('get', this.getChar.bind(this, [char]));
-          this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
+         // this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Info]: ${this.accessory.context.device.name} registered for (${char}) GET characteristic`);
         }
         // Poll Device Characteristics Periodically and Update HomeKit
         if (this.platform.config.remoteApiCharPoll[0].Lightbulb.enabled && this.platform.config.remoteApiCharPoll[0].Lightbulb[char]) {
@@ -61,7 +61,7 @@ export class LightAccessory {
             const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
             if (!device['errno'] && this.checkChar(char, device[char])) {
               this.service.updateCharacteristic(this.platform.Characteristic[char], device[char]);
-              this.platform.log.info(`[Homebridge] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
+              //this.platform.log.info(`[Homebridge] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
             } else {
               if (!device['errno']) {
                 this.platform.log.warn(`[Homebridge] [Device Warning]: (${this.accessory.context.device.name} | ${char}) invalid value (${device[char]})`);
@@ -87,7 +87,7 @@ export class LightAccessory {
       
       if (this.checkChar(char, chars[char])) {
         this.service.updateCharacteristic(this.platform.Characteristic[char], chars[char]);
-        this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${chars[char]})`);
+        //this.platform.log.info(`[${this.platform.config.remoteApiDisplayName}] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${chars[char]})`);
       } else {
         this.platform.log.warn(`[${this.platform.config.remoteApiDisplayName}] [Device Warning]: (${this.accessory.context.device.name} | ${char} | ${chars[char]}) invalid characteristic or value`);
       }
@@ -102,7 +102,7 @@ export class LightAccessory {
     
     const device = await this.platform.remoteAPI('PATCH', this.accessory.context.device.uuid, `{"${char}": ${charValue}}`);
     if (!device['errno']) {
-      this.platform.log.info(`[HomeKit] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${charValue})`);
+      //this.platform.log.info(`[HomeKit] [Device Event]: (${this.accessory.context.device.name} | ${char}) set to (${charValue})`);
     }
     //callback(null);
     callback( device.success?HAPStatus.SUCCESS:HAPStatus.SERVICE_COMMUNICATION_FAILURE);
@@ -123,7 +123,7 @@ export class LightAccessory {
     else{
       const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
       if (!device['errno'] && this.checkChar(char, device[char])) {
-        this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
+        //this.platform.log.info(`[HomeKit] [Device Info]: (${this.accessory.context.device.name} | ${char}) is (${device[char]})`);
         callback(null, device[char]);
       } else {
         if (!device['errno']) {
