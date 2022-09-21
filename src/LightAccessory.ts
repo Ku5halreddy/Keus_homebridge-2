@@ -119,6 +119,7 @@ export class LightAccessory {
     //if accesory is a scene then do not make API request to fetch the state since scene is stateless
     if((uuid).substring(uuid.length-3, uuid.length)=="SCN"){
       charVal=JSON.stringify({"On":false});
+      callback(null, charVal);
     }
     else{
       const device = await this.platform.remoteAPI('GET', `${this.accessory.context.device.uuid}/characteristics/${char}`, '');
