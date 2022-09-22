@@ -34,6 +34,8 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
   // this is used to track platform accessories for dynamic updates
   deviceAccessories: any[];
   deviceAccessoryTypes: any[];
+  reqCount=0;
+  rateLimit=25;
 
   // this is used to store the remote API JSON Web Token (JWT)
   apiJWT
@@ -87,11 +89,26 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
    * This function is invoked when homebridge restores cached accessories from disk at startup.
    * It should be used to setup event handlers for characteristics and update respective values.
    */
+
+   getLock(){
+    if(this.reqCount>this.rateLimit){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  async  sleep() {
+    return await setTimeout(async ()=> {
+     
+    }, 3000);
+  }
   configureAccessory(accessory: PlatformAccessory) {
     //this.log.info(`[Platform Event]:  Restored Device (${accessory.displayName}) from Homebridge Cache`);
 
     // add the restored accessory to the accessories cache so we can track if it has already been registered
-    //this.accessories.push(accessory);
+    this.accessories.push(accessory);
   }
 
   // Discover devices via remote API.
@@ -417,23 +434,37 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
         }
       
         // send Method request
-        const response = await fetch(url, options)
-          .then(res => {
-            if (res.ok) { // res.status >= 200 && res.status < 300
+        while(true){
+          if(this.getLock()){
+            this.reqCount++;
+            this.log.info("req count before APi call"+this.reqCount);
+            const response = await fetch(url, options)
+            .then(res => {
+              if (res.ok) { // res.status >= 200 && res.status < 300
+                return res;
+              } else {
+                throw new Error(`${res.status}`);
+              }
+            })
+            .then(res => res.json())
+            .then(res => {
               return res;
-            } else {
-              throw new Error(`${res.status}`);
-            }
-          })
-          .then(res => res.json())
-          .then(res => {
-            return res;
-          })
-          .catch(error => {
-            this.log.error(`[Platform Error]:  ${this.config.remoteApiDisplayName} ${method} Failure: ${error}`);
-            return error;
-          });
-        return response;
+            })
+            .catch(error => {
+              this.log.error(`[Platform Error]:  ${this.config.remoteApiDisplayName} ${method} Failure: ${error}`);
+              //this.reqCount--;
+              return error;
+            });
+            this.reqCount--;
+            this.log.info("req count before APi call"+this.reqCount);
+          return response;
+          break;
+          }
+          else{
+            this.log.info("awaiting "+this.reqCount);
+            await this.sleep();
+          }
+        }
       }
     } else {
       this.log.error(`[Platform Error]:  Invalid Remote API URL - ${this.config.remoteApiURL}`);
