@@ -174,8 +174,8 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
 
             // link the accessory to your platform
            
-           let registerResp= this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
-           console.log(JSON.stringify(registerResp));
+           const registerResp= this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
+           this.log.info("register REsp"+JSON.stringify(registerResp));
             //this.log.info(`[Platform Event]:  Added New Device (${device.name} | ${device.type}) from ${this.config.remoteApiDisplayName}`);
           } else {
             this.log.warn(`[Platform Warning]:  Device Type Not Supported (${device.name} | ${device.type})`);
