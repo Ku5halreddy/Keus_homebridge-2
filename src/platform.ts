@@ -91,7 +91,7 @@ export class dynamicAPIPlatform implements DynamicPlatformPlugin {
     //this.log.info(`[Platform Event]:  Restored Device (${accessory.displayName}) from Homebridge Cache`);
 
     // add the restored accessory to the accessories cache so we can track if it has already been registered
-    this.accessories.push(accessory);
+    //this.accessories.push(accessory);
   }
 
   // Discover devices via remote API.
